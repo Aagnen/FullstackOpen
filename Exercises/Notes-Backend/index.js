@@ -34,6 +34,7 @@ let notes = [
 
 app.use(express.json())
 app.use(cors())
+app.use(express.static('dist')) //use static frontend
 
 app.get('/', (request, response) => {
     response.send('<h1>Hello me!</h1>')
