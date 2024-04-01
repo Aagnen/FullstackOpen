@@ -117,4 +117,9 @@ npm run build
 app.use(express.static('dist'))
 ```
 
--
+- faster npm scripts
+
+```
+    "build:ui": "rm -rf dist && cd ../Notes && npm run build && cp -r dist ../Notes-Backend",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
+```
