@@ -8,7 +8,7 @@ const PersonForm = ({addPerson, persons, newName, setNewName, newPhone, setNewPh
             if (window.confirm(`${newName} is already added to phonebook. Do you want to change the phone?`))
                 {
                     const person = persons.find(p => p.name === newName)
-                    const changedPreson = { ...person, phone: newPhone}
+                    const changedPreson = { ...person, number: newPhone}
                     Services
                         .update(person.id, changedPreson)
                         .then(returnedData => {
@@ -21,7 +21,7 @@ const PersonForm = ({addPerson, persons, newName, setNewName, newPhone, setNewPh
         else{
             const personObject = {
                 name: newName,
-                phone: newPhone
+                number: newPhone
             }
             Services
                 .create(personObject)

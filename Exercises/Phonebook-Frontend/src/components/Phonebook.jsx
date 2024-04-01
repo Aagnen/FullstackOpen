@@ -32,7 +32,7 @@ const Phonebook = ({persons, query, setPersons, setNotification}) => {
                 <Person
                     key={person.id}
                     name={person.name}
-                    phone={person.phone}
+                    number={person.number}
                     deleteHim={() => deleteHim(person.id)}/> )}
             </ul>
         </div>
