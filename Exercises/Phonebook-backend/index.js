@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 
 let data = [
@@ -26,6 +27,8 @@ let data = [
 ]
 
 app.use(express.json())
+app.use(cors())
+
 morgan.token('postBody', (req, res) => {
     return req.method === 'POST' ? JSON.stringify(req.body) : '';
   });
