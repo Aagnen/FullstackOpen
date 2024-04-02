@@ -6,7 +6,6 @@ if (process.argv.length<3) {
 }
 
 const password = process.argv[2]
-
 const url =
   `mongodb+srv://aagnen6021:${password}@noteapp.lwpnyz0.mongodb.net/?retryWrites=true&w=majority`
 
@@ -22,17 +21,17 @@ const noteSchema = new mongoose.Schema({
 const Note = mongoose.model('Note', noteSchema)
 
 const note = new Note({
-  content: 'Kupno mieszkania to dorosła sprawa.',
-  important: true,
+  content: 'Test',
+  important: false,
 })
 
-// note.save().then(result => {
-//   console.log('note saved!')
-//   mongoose.connection.close()
-// })
-Note.find({}).then(result => {
-    result.forEach(note => {
-      console.log(note)
-    })
-    mongoose.connection.close()
-  })
+note.save().then(result => {
+  console.log('note saved!')
+  mongoose.connection.close()
+})
+// Note.find({}).then(result => {
+//     result.forEach(note => {
+//       console.log(note)
+//     })
+//     mongoose.connection.close()
+//   })

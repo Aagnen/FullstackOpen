@@ -162,3 +162,29 @@ Note.find({}).then(result => {
 - 0.0.0.0 as an IP allows access from anywhere
 
 ✨ 🎉✨ Created mongoose database from phonebook ✨ 🎉✨
+
+- toJSON
+
+```js
+noteSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
+```
+
+- The code automatically uses the defined *toJSON* when formatting notes to the response.
+
+### Env variables
+
+```js
+MONGODB_URI=address_here npm run dev
+```
+
+- dotenv
+
+```powershell
+npm install dotenv
+```
