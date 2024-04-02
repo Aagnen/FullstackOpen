@@ -13,7 +13,7 @@ Course from [Helsinki University Fullstack Open](https://fullstackopen.com/en/)
 
 - starting app from template
 
-  ```
+  ```powershell
   npm create vite@latest part1 -- --template react
   cd part1
   npm install
@@ -21,7 +21,7 @@ Course from [Helsinki University Fullstack Open](https://fullstackopen.com/en/)
   ```
 - basic JavaScript function
 
-  ```
+  ```js
   () => (
       <div>
           <p>Hello world</p>
@@ -31,7 +31,7 @@ Course from [Helsinki University Fullstack Open](https://fullstackopen.com/en/)
 
   or this
 
-  ```
+  ```js
   const App = () => {
       return (
           <div>
@@ -49,7 +49,7 @@ Course from [Helsinki University Fullstack Open](https://fullstackopen.com/en/)
 
 - const vs let
 - objects
-  ```
+  ```js
   const object3 = {
       name: {
           first: 'Dan',
@@ -61,18 +61,21 @@ Course from [Helsinki University Fullstack Open](https://fullstackopen.com/en/)
   ```
 - deconstruction
 
-```
+```js
   const Hello = (props) => {
   const { name, age } = props }
 ```
 
 ### State
 
-    ``   import { useState } from 'react'     const [ counter, setCounter ] = useState(0)   ``
+```js
+import { useState } from 'react'     const [ counter, setCounter ] = useState(0)
+```
 
 ### Event handling
 
-    const App = () => {
+```js
+const App = () => {
         const [ counter, setCounter ] = useState(0)
 
     const handleClick = () => {
@@ -87,8 +90,13 @@ Course from [Helsinki University Fullstack Open](https://fullstackopen.com/en/)
             `</div>`
             )
     }
+```
+
 or
-    ``  <button onClick={() => console.log('clicked')}>  ``
+
+```js
+<button onClick={() => console.log('clicked')}>
+```
 
 ## 3 Server -> Internet
 
@@ -119,7 +127,38 @@ app.use(express.static('dist'))
 
 - faster npm scripts
 
-```
+```js
     "build:ui": "rm -rf dist && cd ../Notes && npm run build && cp -r dist ../Notes-Backend",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
 ```
+
+### MongoDB
+
+```powershell
+npm install mongodb
+npm install mongoose
+```
+
+- saving
+
+```javascript
+note.save().then(result => {
+  console.log('note saved!')
+  mongoose.connection.close()
+})
+```
+
+- finding
+
+```js
+Note.find({}).then(result => {
+    result.forEach(note => {
+      console.log(note)
+    })
+    mongoose.connection.close()
+  })
+```
+
+- 0.0.0.0 as an IP allows access from anywhere
+
+✨ 🎉✨ Created mongoose database from phonebook ✨ 🎉✨
