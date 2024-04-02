@@ -8,15 +8,14 @@ const password = process.argv[2]
 
 const url =
   `mongodb+srv://aagnen6021:${password}@noteapp.lwpnyz0.mongodb.net/?retryWrites=true&w=majority`
-mongoose.set('strictQuery',false)
 
+mongoose.set('strictQuery', false)
 mongoose.connect(url)
 
 const noteSchema = new mongoose.Schema({
   content: String,
   important: Boolean,
 })
-
 const Note = mongoose.model('Note', noteSchema)
 
 let notes = [
@@ -58,7 +57,9 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
+  Note.find({}).then(notes => {
     response.json(notes)
+  })
 })
 
 app.get('/api/notes/:id', (request, response) => {
