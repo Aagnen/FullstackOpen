@@ -11,16 +11,16 @@ const Phonebook = ({persons, query, setPersons, setNotification}) => {
         if (window.confirm('Are you sure?'))
         {
             Services
-            .deleteHim(id)
-            .then(returned => {
-                setPersons(persons.filter(p => p.id !== id))})
-            .catch(error => {
-                setNotification(`Person '${person.name}' was already removed from server`)
-                setTimeout(() => {
-                    setNotification(null)
-                  }, 5000)
-                setPersons(persons.filter(p => p.id !== id))
-            })
+                .deleteHim(id)
+                .then(returned => {
+                    setPersons(persons.filter(p => p.id !== id))})
+                .catch(error => {
+                    setNotification(`Person '${person.name}' was already removed from server`)
+                    setTimeout(() => {
+                        setNotification(null)
+                    }, 5000)
+                    setPersons(persons.filter(p => p.id !== id))
+                })
         }
     }
     

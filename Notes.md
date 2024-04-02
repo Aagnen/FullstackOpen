@@ -188,3 +188,46 @@ MONGODB_URI=address_here npm run dev
 ```powershell
 npm install dotenv
 ```
+
+### Error handling
+
+- typical way:
+
+```js
+app.get('/api/persons/:id', (req, res, next) => {
+    Person.findById(req.params.id)
+    .then(p => {
+        if (p) {
+          res.json(p)
+        } else {
+          res.status(404).end()
+    }})
+    .catch(err => {
+        console.log(`Error finding note id: ${err.message}`)
+        res.status(400).send({ error: 'malformatted id' })
+})
+```
+
+- midlleware
+
+```js
+.catch(err => next(err))
+```
+
+```js
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  } 
+
+  next(error)
+}
+
+// this has to be the last loaded middleware, also all the routes should be registered before this!
+app.use(errorHandler)
+```
+
+- execution order of middleware is the same as the order that they are loaded into express with the *app.use* function
+-

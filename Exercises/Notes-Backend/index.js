@@ -141,6 +141,20 @@ app.delete('/api/notes/:id', (req, res, next) => {
     .catch(err => next(err))
 })
 
+app.put('/api/notes/:id', (req, response, next) => {
+  const body = req.body
+
+  const note = {
+    content: body.content,
+    important: body.important,
+  }
+  Note.findByIdAndUpdate(req.params.id, note, { new: true })
+    .then(updatedNote => {
+      response.json(updatedNote)
+    })
+    .catch(error => next(error))
+})
+
 app.use(unknownEndpoint)
 app.use(errorHandler)
 

@@ -7,14 +7,27 @@ const Person = require('./models/person')
 
 const app = express()
 
+app.use(express.static('dist')) //use static frontend
 app.use(express.json())
 app.use(cors())
-app.use(express.static('dist')) //use static frontend
+
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: 'unknown endpoint' })
+}  
 
 morgan.token('postBody', (req, res) => {
     return req.method === 'POST' ? JSON.stringify(req.body) : '';
 });
 app.use(morgan(':method :url :response-time :postBody'));
+
+const errorHandler = (err, req, res, next) => {
+    // console.log(`Found error: ${err.message}`) // does the same
+    console.error(err.message)
+    if (err.name === 'CastError') {
+        return res.status(400).send({ error: 'malformatted id' })
+    } 
+    next(err)
+}
 
 //#region local database
 // let data = [
@@ -119,11 +132,17 @@ app.get('/api/persons', (req, res) => {
       res.json(n)
     })
 })
-app.get('/api/persons/:id', (req, res) => {
-    Person.findById(req.params.id).then(p => {
-      res.json(p)
-    })
+app.get('/api/persons/:id', (req, res, next) => {
+    Person.findById(req.params.id)
+    .then(p => {
+        if (p) {
+          res.json(p)
+        } else {
+          res.status(404).end()
+    }})
+    .catch(err => next(err))
 })
+
 app.post('/api/persons', (req, res) => {
     const body = req.body
   
@@ -141,7 +160,32 @@ app.post('/api/persons', (req, res) => {
     person.save().then(saved => {
       res.json(saved)
     })
-  })
+})
+
+app.delete('/api/persons/:id', (req, res, next) => {
+    Person.findByIdAndDelete(req.params.id)
+      .then(result => {
+        res.status(204).end()
+      })
+      .catch(err => next(err))
+})
+
+app.put('/api/persons/:id', (req, response, next) => {
+    const body = req.body
+
+    const person = {
+        name: body.name,
+        number: body.number,
+    }
+    Person.findByIdAndUpdate(req.params.id, person, { new: true })
+        .then(updated => {
+            response.json(updated)
+        })
+        .catch(error => next(error))
+})
+
+app.use(unknownEndpoint)
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
