@@ -18,9 +18,22 @@ const app = express()
 // console.log(`Server running on post ${PORT}`)
 //#endregion
 
+app.use(express.static('dist')) //use static frontend
 app.use(express.json())
 app.use(cors())
-app.use(express.static('dist')) //use static frontend
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+const errorHandler = (err, req, res, next) => {
+  console.error(err.message)
+  if (err.name === 'CastError') {
+      return res.status(400).send({ error: 'malformatted id' })
+  } 
+  next(err)
+}
+
 
 //#region local database
 // let notes = [
@@ -94,9 +107,14 @@ app.get('/api/notes', (request, response) => {
   })
 })
 app.get('/api/notes/:id', (req, res) => {
-  Note.findById(req.params.id).then(n => {
-    res.json(n)
-  })
+  Note.findById(req.params.id)
+  .then(n => {
+    if (n) {
+      res.json(n)
+    } else {
+      res.status(404).end()
+  }})
+  .catch(err => next(err))
 })
 
 app.post('/api/notes', (req, res) => {
@@ -114,6 +132,17 @@ app.post('/api/notes', (req, res) => {
     res.json(savedNote)
   })
 })
+
+app.delete('/api/notes/:id', (req, res, next) => {
+  Note.findByIdAndDelete(req.params.id)
+    .then(result => {
+      res.status(204).end()
+    })
+    .catch(err => next(err))
+})
+
+app.use(unknownEndpoint)
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
