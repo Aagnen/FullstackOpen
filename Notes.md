@@ -230,4 +230,5 @@ app.use(errorHandler)
 ```
 
 - execution order of middleware is the same as the order that they are loaded into express with the *app.use* function
--
+
+✨ 🎉✨ Backend and Frontend work with all put, post, get, delete, locally and online! ✨ 🎉✨
