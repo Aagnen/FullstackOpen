@@ -16,9 +16,15 @@ const PersonForm = ({addPerson, persons, newName, setNewName, newPhone, setNewPh
                             setNewName('')
                             setNewPhone('')
                         })
+                        .catch(err => {
+                            console.log(err.response.data.error)
+                            setNotification(err.response.data.error)
+                            setTimeout(() => {
+                                setNotification(null)
+                            }, 5000)
+                        })
                 }
-        }
-        else{
+        } else {
             const personObject = {
                 name: newName,
                 number: newPhone
@@ -29,21 +35,18 @@ const PersonForm = ({addPerson, persons, newName, setNewName, newPhone, setNewPh
                     addPerson(persons.concat(returnedData))
                     setNewName('')
                     setNewPhone('')
-                })
-                .catch(err => {
-                    console.log(error.response.data.error)
-                    setNotification(`Person was NOT added.`)
+
+                    setNotification(`Added '${personObject.name}'!`)
                     setTimeout(() => {
                         setNotification(null)
                     }, 5000)
                 })
-                
-                setNotification(
-                    `Added '${personObject.name}'!`
-                  )
-                  setTimeout(() => {
-                    setNotification(null)
-                  }, 5000)
+                .catch(err => {
+                    setNotification(err.response.data.error)
+                    setTimeout(() => {
+                        setNotification(null)
+                    }, 5000)
+                })
         }
     }
 
