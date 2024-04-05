@@ -234,3 +234,7 @@ app.use(errorHandler)
 ## Lint
 
 > *Generically, lint or a linter is any tool that detects and flags errors in programming languages, including stylistic errors*
+
+[AirBnB rules](https://github.com/airbnb/javascript)
+
+👏 💖🤗 Koniec 3 modułu - potrafię postawić działającą stronę z bazą danych w backendzie, deployed do internetu! 👏 💖🤗
