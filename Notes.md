@@ -2,14 +2,12 @@
 
 Course from [Helsinki University Fullstack Open](https://fullstackopen.com/en/)
 
-# Classes
-
-## 0 Fundamentals
+# 0 Fundamentals
 
 - Always keep the Developer Console open
   - Fn-F12 or ctrl-shift-i
 
-## 1 React
+# 1 React
 
 - starting app from template
 
@@ -45,7 +43,7 @@ Course from [Helsinki University Fullstack Open](https://fullstackopen.com/en/)
   - In practice, JSX is much like HTML with the distinction that with JSX you can easily embed dynamic content by writing appropriate JavaScript within curly braces
   - The compilation is handled by Babel
 
-### JS
+## JS
 
 - const vs let
 - objects
@@ -98,9 +96,9 @@ or
 <button onClick={() => console.log('clicked')}>
 ```
 
-## 3 Server -> Internet
+# 3 Server -> Internet
 
-### Online
+## Online
 
 * Cors policy
 
@@ -177,7 +175,7 @@ noteSchema.set('toJSON', {
 
 - The code automatically uses the defined *toJSON* when formatting notes to the response.
 
-### Env variables
+## Env variables
 
 ```js
 MONGODB_URI=address_here npm run dev
@@ -232,3 +230,7 @@ app.use(errorHandler)
 - execution order of middleware is the same as the order that they are loaded into express with the *app.use* function
 
 ✨ 🎉✨ Backend and Frontend work with all put, post, get, delete, locally and online! ✨ 🎉✨
+
+## Lint
+
+> *Generically, lint or a linter is any tool that detects and flags errors in programming languages, including stylistic errors*

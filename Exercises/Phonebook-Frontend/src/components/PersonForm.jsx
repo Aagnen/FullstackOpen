@@ -1,6 +1,7 @@
 import Services from '../services/services'
+import PropTypes from 'prop-types';
 
-const PersonForm = ({addPerson, persons, newName, setNewName, newPhone, setNewPhone, setNotification}) => {
+const PersonForm = ({ addPerson, persons, newName, setNewName, newPhone, setNewPhone, setNotification }) => {
     const addData = (event) => {
         event.preventDefault()
         if(persons.some(p => p.name === newName))
@@ -69,5 +70,17 @@ const PersonForm = ({addPerson, persons, newName, setNewName, newPhone, setNewPh
         </div>
     )
 }
+PersonForm.propTypes = {
+    addPerson: PropTypes.func.isRequired,
+    persons: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })).isRequired,
+    newName: PropTypes.string.isRequired,
+    setNewName: PropTypes.func.isRequired,
+    newPhone: PropTypes.string.isRequired,
+    setNewPhone: PropTypes.func.isRequired,
+    setNotification: PropTypes.func.isRequired,
+  };
 
 export default PersonForm
