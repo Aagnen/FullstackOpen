@@ -30,7 +30,9 @@ const errorHandler = (err, req, res, next) => {
   console.error(err.message)
   if (err.name === 'CastError') {
       return res.status(400).send({ error: 'malformatted id' })
-  } 
+  } else if (err.name === 'ValidationError') {
+    return response.status(400).json({ error: err.message})
+  }
   next(err)
 }
 
@@ -116,10 +118,27 @@ app.get('/api/notes/:id', (req, res) => {
   }})
   .catch(err => next(err))
 })
+  //#region Simple validation
+  // app.post('/api/notes', (req, res) => {
+  //   const body = req.body
+  
+  // if(body.content === undefined) {
+  //   return express.response.status(400).json({error: 'content missing'})
+  // }
 
-app.post('/api/notes', (req, res) => {
+  // const note = new Note({
+  //   content: body.content,
+  //   important: body.important || false
+  // })
+  // note.save().then(savedNote => {
+  //   res.json(savedNote)
+  // })
+  //#endregion
+
+  //Validation with Mongoose
+app.post('/api/notes', (req, res, next) => {
   const body = req.body
-
+  
   if(body.content === undefined) {
     return express.response.status(400).json({error: 'content missing'})
   }
@@ -128,9 +147,11 @@ app.post('/api/notes', (req, res) => {
     content: body.content,
     important: body.important || false
   })
-  note.save().then(savedNote => {
+  note.save()
+  .then(savedNote => {
     res.json(savedNote)
   })
+  .catch(error => next(error))
 })
 
 app.delete('/api/notes/:id', (req, res, next) => {
@@ -142,13 +163,13 @@ app.delete('/api/notes/:id', (req, res, next) => {
 })
 
 app.put('/api/notes/:id', (req, response, next) => {
-  const body = req.body
+  const { content, important } = request.body
 
-  const note = {
-    content: body.content,
-    important: body.important,
-  }
-  Note.findByIdAndUpdate(req.params.id, note, { new: true })
+  Note.findByIdAndUpdate(
+    req.params.id, 
+    { content, important }, 
+    { new: true, runValidators: true, context: 'query' }
+    )
     .then(updatedNote => {
       response.json(updatedNote)
     })
