@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const mongoose = require('mongoose')
 const Person = require('./models/person')
 
 const app = express()
@@ -25,7 +24,9 @@ const errorHandler = (err, req, res, next) => {
     console.error(err.message)
     if (err.name === 'CastError') {
         return res.status(400).send({ error: 'malformatted id' })
-    } 
+    } else if (err.name === 'ValidationError') {
+        return response.status(400).json({error: err.message})
+    }
     next(err)
 }
 
@@ -143,23 +144,18 @@ app.get('/api/persons/:id', (req, res, next) => {
     .catch(err => next(err))
 })
 
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
     const body = req.body
-  
-    if(body.name === undefined) {
-      return express.response.status(400).json({error: 'name missing'})
-    }
-    if(body.number === undefined) {
-        return express.response.status(400).json({error: 'number missing'})
-    }
-
+    
     const person = new Person({
         name: body.name,
         number: body.number,
     })
-    person.save().then(saved => {
+    person.save()
+    .then(saved => {
       res.json(saved)
     })
+    .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (req, res, next) => {

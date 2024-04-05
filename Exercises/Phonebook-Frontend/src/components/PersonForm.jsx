@@ -30,6 +30,14 @@ const PersonForm = ({addPerson, persons, newName, setNewName, newPhone, setNewPh
                     setNewName('')
                     setNewPhone('')
                 })
+                .catch(err => {
+                    console.log(error.response.data.error)
+                    setNotification(`Person was NOT added.`)
+                    setTimeout(() => {
+                        setNotification(null)
+                    }, 5000)
+                })
+                
                 setNotification(
                     `Added '${personObject.name}'!`
                   )
