@@ -98,6 +98,18 @@ or
 
 # 3 Server -> Internet
 
+- *npm init*
+- Libraries
+
+  - cors -
+  - dotenv - enviro variables
+  - express - server instead of html
+  - [mongodb](https://account.mongodb.com/account/login?reason=ACCESS_DENIED) - database
+  - mongoose
+  - morgan - middleware, error logging
+  - eslint - "spell"check
+  - nodemon - restar on save
+
 ## Online
 
 * Cors policy
@@ -235,6 +247,15 @@ app.use(errorHandler)
 
 > *Generically, lint or a linter is any tool that detects and flags errors in programming languages, including stylistic errors*
 
+```
+npm install eslint --save-dev
+npx eslint --init
+npm install --save-dev @stylistic/eslint-plugin-js
+```
+
 [AirBnB rules](https://github.com/airbnb/javascript)
 
 👏 💖🤗 Koniec 3 modułu - potrafię postawić działającą stronę z bazą danych w backendzie, deployed do internetu! 👏 💖🤗
+
+
+# 4 Testing Server
