@@ -258,3 +258,27 @@ npm install --save-dev @stylistic/eslint-plugin-js
 👏 💖🤗 Koniec 3 modułu - potrafię postawić działającą stronę z bazą danych w backendzie, deployed do internetu! 👏 💖🤗
 
 # 4 Testing Server
+
+### Structure to keep
+
+```bash
+├── index.js
+├── app.js
+├── dist
+│   └── ...
+├── controllers
+│   └── notes.js
+├── models
+│   └── note.js
+├── package-lock.json
+├── package.json
+├── utils
+│   ├── config.js
+│   ├── logger.js
+│   └── middleware.js 
+```
+
+### Unit tests
+
+- Options: Mocha, Jest, Vitest, node:test...
+- **"test"**:**"node --test"**
