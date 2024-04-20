@@ -98,17 +98,20 @@ or
 
 # 3 Server -> Internet
 
-- *npm init*
-- Libraries
+*npm init*
 
-  - cors -
-  - dotenv - enviro variables
-  - express - server instead of html
-  - [mongodb](https://account.mongodb.com/account/login?reason=ACCESS_DENIED) - database
-  - mongoose
-  - morgan - middleware, error logging
-  - eslint - "spell"check
-  - nodemon - restar on save
+## Libraries
+
+- cors -
+- dotenv - enviro variables
+- express - server instead of html
+- [mongodb](https://account.mongodb.com/account/login?reason=ACCESS_DENIED) - database
+- mongoose
+- morgan - middleware, error logging
+- eslint - "spell"check
+- nodemon - restar on save
+- cross-env - cross-platform compatibility?
+- supertest - integration tests
 
 ## Online
 
