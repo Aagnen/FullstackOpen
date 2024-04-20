@@ -285,3 +285,75 @@ npm install --save-dev @stylistic/eslint-plugin-js
 
 - Options: Mocha, Jest, Vitest, node:test...
 - **"test"**:**"node --test"**
+- running only chosen
+  - npm test -- tests/note_api.test.js
+  - test.only('notes are returned as json', async () => { //only option runs with npm test -- --test-only
+  - npm test -- --test-name-pattern="the first note is about HTTP methods"
+    - can also contain just a part of the name
+
+### Async
+
+- Callback function
+  - .then
+  - chaining promises:
+
+    ```js
+    Note.find({})
+      .then(notes => {
+        return notes[0].deleteOne()
+      })
+      .then(response => {
+        console.log('the first note is removed')
+        // more code here
+      })
+    ```
+- Generator functions ... ?
+- async await
+  - introduced in ES7
+
+    ```js
+    const main = async () => {
+      const notes = await Note.find({})
+      console.log('operation returned the following notes', notes)
+
+      const response = await notes[0].deleteOne()
+      console.log('the first note is removed')
+    }
+
+
+    main()
+    ```
+  - To use the await operator with asynchronous operations, they have to return a promise.
+  - Using await is possible only inside of an [async](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) function.
+
+```js
+//From this
+notesRouter.get('/', (request, response) => {
+  Note.find({})
+    .then(notes => {
+    response.json(notes)
+  })
+})//To thisnotesRouter.get('/', async (request, response) => {
+  const notes = await Note.find({})
+  response.json(notes)
+})
+```
+
+```js
+// From this
+  note.save()
+    .then(savedNote => {
+      response.status(201).json(savedNote)
+    })
+    .catch(error => next(error))
+
+// To this
+  try {
+    const savedNote = await note.save()
+    response.status(201).json(savedNote)
+  } catch(exception) {
+    next(exception)
+  }
+```
+
+- **DO NOT use async/await and *then* methods in the same code**
