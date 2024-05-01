@@ -112,6 +112,7 @@ or
 - nodemon - restar on save
 - cross-env - cross-platform compatibility?
 - supertest - integration tests
+- [bcrypt](https://github.com/kelektiv/node.bcrypt.js) - generating the password hashes
 
 ## Online
 
@@ -357,3 +358,8 @@ notesRouter.get('/', (request, response) => {
 ```
 
 - **DO NOT use async/await and *then* methods in the same code**
+
+## Users
+
+- [bcrypt](https://github.com/kelektiv/node.bcrypt.js) package for generating the password hashes
+-
