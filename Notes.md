@@ -113,6 +113,7 @@ or
 - cross-env - cross-platform compatibility?
 - supertest - integration tests
 - [bcrypt](https://github.com/kelektiv/node.bcrypt.js) - generating the password hashes
+- jsonwebtoken - generate authorization tokens
 
 ## Online
 
@@ -361,5 +362,11 @@ notesRouter.get('/', (request, response) => {
 
 ## Users
 
-- [bcrypt](https://github.com/kelektiv/node.bcrypt.js) package for generating the password hashes
--
+* [bcrypt](https://github.com/kelektiv/node.bcrypt.js) package for generating the password hashes
+* jsonwebtoken - generate authorization tokens
+
+### Http vs Https
+
+* **HTTP** is unsecured and uses TCP (Transmission Control Protocol) to send data over the internet without encrypting it. This makes HTTP vulnerable to eavesdropping and man-in-the-middle attacks, where a malicious actor could intercept the data being transferred.
+* **HTTPS** , on the other hand, uses TLS (Transport Layer Security) or SSL (Secure Sockets Layer) to encrypt the data transmitted between the client and server. This encryption helps protect the data from being read or modified by unauthorized parties.
+* Websites served over **HTTPS** can receive a ranking boost from search engines like Google, as they prioritize the security of their users. Moving to HTTPS is seen as a best practice for SEO.
